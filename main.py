@@ -153,8 +153,49 @@ def getInedexOfLetter():
     res = globalalignment(first, second)
     print(res)
     
-print("Reverse complement:")
-print(reverse_complement("ATCG"))
+def is_valid_dna(seq):
+    return all(c in "ACGT" for c in seq)
 
-print("\nGlobal alignment:")
-print(globalalignment("PLEASANTLY", "MEANLY"))
+def is_valid_protein(seq):
+    valid_amino_acids = "ACDEFGHIKLMNPQRSTVWY"
+    return all(c in valid_amino_acids for c in seq)
+
+
+print("Bioinformatics Toolkit")
+print("Available tasks:")
+print("1 - reverse complement (DNA only: A, C, G, T)")
+print("2 - sequence alignment (protein sequences)")
+
+while True:
+    task = input("Choose task (1 or 2): ")
+
+    if task == "1":
+        while True:
+            dna = input("Enter DNA sequence (only A, C, G, T): ").upper()
+
+            if is_valid_dna(dna):
+                print("Result:")
+                print(reverse_complement(dna))
+                break
+            else:
+                print("Invalid DNA sequence. Use only A, C, G, T.\n")
+
+        break
+
+    elif task == "2":
+        while True:
+            seq1 = input("Enter first sequence (amino acids): ").upper()
+            seq2 = input("Enter second sequence (amino acids): ").upper()
+
+            if is_valid_protein(seq1) and is_valid_protein(seq2):
+                print("Result:")
+                print(globalalignment(seq1, seq2))
+                break
+            else:
+                print("Invalid protein sequence. Use only standard amino acid letters:")
+                print("A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y\n")
+
+        break
+
+    else:
+        print("Invalid choice. Please enter 1 or 2.\n")
